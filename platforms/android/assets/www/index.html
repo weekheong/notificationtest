@@ -37,7 +37,7 @@
         <title>Hello World</title>
     </head>
     <body>
-        <div data-role="page" id="main" data-url="main" tabindex="0" class="ui-page ui-page-theme-a ui-page-footer-fixed ui-page-active" style="padding-bottom: 35px;">
+        <div data-role="page" id="home" data-url="home" tabindex="0" class="ui-page ui-page-theme-a ui-page-footer-fixed ui-page-active" style="padding-bottom: 35px;">
 			<div class="ui-panel-wrapper">
 			<div data-role="header" role="banner" class="ui-header ui-bar-inherit">
 				<h1 class="ui-title" role="heading" aria-level="1">Tropical Grapefruit</h1>
@@ -46,25 +46,76 @@
 				<div data-role="main" class="ui-content">
 				<a href="javascript:test()" target="_blank"><button>Click</button></a>
 				</div>
+				<ul id ="app-status-ul"></ul>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
         <script>
 		
+		var pushNotification;
 		document.addEventListener("deviceready", onDeviceReady, false);
-	
-		function alertDismissed() {
-			// do something
-		}
-		function test()
+		function onDeviceReady(){
+			pushNotification = window.plugins.pushNotification;
+			if ( device.platform == 'android' || device.platform == 'Android' )
 			{
-					navigator.notification.alert(
-						'You are the winner!',  // message
-						alertDismissed,         // callback
-						'Game Over',            // title
-						'Done'                  // buttonName
-					);
+			pushNotification.register(
+				successHandler,
+				errorHandler, {
+					"senderID":"AIzaSyBY_mXX6AHlYnbf1X5qXB6a1Zpy5xzhxu8",
+					"ecb":"onNotificationGCM"
+				});
 			}
+		}
+		
+		// Android
+		function onNotificationGCM(e) {
+			$("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
+		 
+			switch( e.event )
+			{
+			case 'registered':
+				if ( e.regid.length > 0 )
+				{
+					$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+					
+					console.log("regID = " + e.regid);
+				}
+			break;
+		 
+			case 'message':
+				if ( e.foreground )
+				{
+					$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+					var my_media = new Media("/android_asset/www/"+e.soundname);
+					my_media.play();
+				}
+				else
+				{ 
+					if ( e.coldstart )
+					{
+						$("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+					}
+					else
+					{
+						$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+					}
+				}
+		 
+				$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+				$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+			break;
+		 
+			case 'error':
+				$("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+			break;
+		 
+			default:
+				$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+			break;
+		  }
+		}
+
 		</script>
     </body>
 </html>

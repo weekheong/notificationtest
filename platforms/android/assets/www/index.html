@@ -59,10 +59,11 @@
 			alert("TEST");
 		}
 
-		document.addEventListener("deviceready", onDeviceReady, true);
 		function onDeviceReady() {
-			alert("HAHA");
+			alert(device.platform);
 		}
+		
+		document.addEventListener("deviceready", onDeviceReady, true);
 		
 		</script>
     </body>

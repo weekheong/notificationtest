@@ -48,14 +48,14 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		alert("TEST");
+			alert(device.platform);
         var pushNotification = window.plugins.PushNotification;
         // TODO: Enter your own GCM Sender ID in the register call for Android
         if (device.platform == 'android' || device.platform == 'Android') {
-			alert("Android");
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"930119857297","ecb":"app.onNotificationGCM"});
         }
         else {
+			alert("else");
             pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
         }
         var parentElement = document.getElementById(id);

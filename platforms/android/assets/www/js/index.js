@@ -34,7 +34,6 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-		alert("deviceready");
     },
     tokenHandler:function(msg) {
         console.log("Token Handler " + msg);
@@ -49,8 +48,8 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		alert("receivedEvent");
         var pushNotification = window.plugins.pushNotification;
+		alert(pushNotification);
         // TODO: Enter your own GCM Sender ID in the register call for Android
         if (device.platform == 'android' || device.platform == 'Android') {
 			alert("Android");

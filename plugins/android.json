@@ -15,6 +15,9 @@
         },
         "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "com.tropical.grapefruit"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.tropical.grapefruit"
         }
     },
     "dependent_plugins": {}

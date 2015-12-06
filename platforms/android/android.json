@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -82,6 +86,9 @@
         },
         "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "com.tropical.grapefruit"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.tropical.grapefruit"
         }
     },
     "dependent_plugins": {},
@@ -115,11 +122,20 @@
             "clobbers": [
                 "PushNotification"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.0",
         "cordova-plugin-dialogs": "1.2.0",
-        "com.phonegap.plugins.PushPlugin": "2.4.0"
+        "com.phonegap.plugins.PushPlugin": "2.4.0",
+        "cordova-plugin-device": "1.1.0"
     }
 }

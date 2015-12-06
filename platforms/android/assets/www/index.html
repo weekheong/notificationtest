@@ -56,9 +56,15 @@
 		app.initialize();
 		function test()
 		{
-			alert(device.platform);
+			alert("TEST");
 		}
 
+		document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady() {
+			alert("HAHA");
+			alert(device.platform);
+		}
+		
 		</script>
     </body>
 </html>
